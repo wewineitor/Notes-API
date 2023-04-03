@@ -11,8 +11,9 @@ public class OpenApiConfig {
 
     @Bean
     public OpenAPI openAPI() {
-        return new OpenAPI().info(new Info().title("Cyber Manager API")
-                .description("Cyber Manager API allows for a simple way of following and recording rentals for different computers. It also allows for saving basic information for the computers.")
+        return new OpenAPI().info(new Info()
+                .title("API para gestion de notas")
+                .description("API encargada de gestionar notas para distintos usuarios")
                 .version("v1.0")
         );
     }
