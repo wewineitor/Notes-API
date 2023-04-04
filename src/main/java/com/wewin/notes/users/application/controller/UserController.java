@@ -1,7 +1,7 @@
 package com.wewin.notes.users.application.controller;
 
 import com.wewin.notes.users.domain.dto.UserDTO;
-import com.wewin.notes.users.domain.port.UserServicePort;
+import com.wewin.notes.users.domain.ports.UserServicePort;
 import com.wewin.notes.users.infraestructure.entity.User;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

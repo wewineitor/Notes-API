@@ -1,11 +1,9 @@
 package com.wewin.notes.users.domain.service;
 
 import com.wewin.notes.users.domain.dto.UserDTO;
-import com.wewin.notes.users.domain.port.UserServicePort;
+import com.wewin.notes.users.domain.ports.UserPersistencePort;
+import com.wewin.notes.users.domain.ports.UserServicePort;
 import com.wewin.notes.users.infraestructure.entity.User;
-import com.wewin.notes.users.infraestructure.repository.UserRepository;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,30 +11,29 @@ import java.util.List;
 @Service
 public class UserService implements UserServicePort {
 
-    @Autowired
-    UserRepository userRepository;
+    private final UserPersistencePort userPersistencePort;
+
+    public UserService(UserPersistencePort userPersistencePort) {
+        this.userPersistencePort = userPersistencePort;
+    }
 
     @Override
     public List<User> getAllUsers() {
-        return userRepository.findAll();
+        return userPersistencePort.getAllUsers();
     }
 
     @Override
     public User addUser(UserDTO userDTO) {
-        User user = new ModelMapper().map(userDTO, User.class);
-        return userRepository.save(user);
+        return userPersistencePort.addUser(userDTO);
     }
 
     @Override
     public User updateUser(String email, UserDTO userDTO) {
-        User user = userRepository.findByEmail(email);
-        new ModelMapper().map(userDTO, user);
-        userRepository.save(user);
-        return user;
+        return userPersistencePort.updateUser(email, userDTO);
     }
 
     @Override
     public void deleteUser(Long id) {
-        userRepository.deleteById(id);
+        userPersistencePort.deleteUser(id);
     }
 }
